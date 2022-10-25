@@ -39,17 +39,6 @@ namespace Portfolio.Controllers
             return result;
         }
 
-        public string GetIpAddress() 
-        {
-            Microsoft.Extensions.Primitives.StringValues realip;
-            bool found = false;
-            found = Request.Headers.TryGetValue("CF-Connecting-IP", out realip);
-            if (!found)
-            {
-                realip = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-            }
-            return realip;
-        }
 
         public HomeController(ILogger<HomeController> logger, IConfiguration config)
         {
@@ -112,7 +101,7 @@ namespace Portfolio.Controllers
             //code to get real ip address
             //string? realip;
             bool found = false;
-            Microsoft.Extensions.Primitives.StringValues realip= GetIpAddress();
+            Microsoft.Extensions.Primitives.StringValues realip= ip.GetIpAddress(Request);
 
             ///end code to get ip 
 
@@ -138,12 +127,12 @@ namespace Portfolio.Controllers
             try
             {
                 client.Send(mm);
-                _logger.LogInformation($"Email was sent sender ip:{GetIpAddress()} name: {cvm.Name} subject: {cvm.Subject} message {cvm.Message}");
+                _logger.LogInformation($"Email was sent sender ip:{ip.GetIpAddress(Request)} name: {cvm.Name} subject: {cvm.Subject} message {cvm.Message}");
             }
             catch (Exception ex)
             {
                 ViewBag.test = $"<div class=\"alert alert-danger\" role=\"alert\">We are sorry. There was a error and your message was not sent. Please try again later Error:<br /></div>";
-                _logger.LogError($"Email failed to send. sender ip:{GetIpAddress()} name: {cvm.Name} subject: {cvm.Subject} message {cvm.Message}");
+                _logger.LogError($"Email failed to send. sender ip:{ip.GetIpAddress(Request)} name: {cvm.Name} subject: {cvm.Subject} message {cvm.Message}");
                 _logger.LogError(ex.Message);
                 _logger.LogTrace(ex.StackTrace);
                 return View(cvm);
