@@ -20,6 +20,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseXRay("Portfolio");
+app.UseStatusCodePagesWithReExecute("/Error/e{0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
