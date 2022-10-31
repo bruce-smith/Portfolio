@@ -48,6 +48,7 @@ namespace Portfolio.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.captchaSiteKey = _config["Google:captchaSiteKey"];
             gridItem[] portfolioItems = {
                 new gridItem("Store Front","","/Content/images/portfolio/StoreFront.png","Store Front","http://storefront.brucebsmith.net"),
                 new gridItem("Job Board","","/Content/images/portfolio/JobBoard.png","Job Board","http://jobboard.brucebsmith.net")
@@ -92,7 +93,7 @@ namespace Portfolio.Controllers
             if (!botcheckpassed)
             {
                 ViewBag.test = "<div class=\"alert alert-danger\" role=\"alert\">You failed The bot test!</div>";
-                _logger.LogInformation($"A user failed the bot test ip:{GetIpAddress()}");
+                _logger.LogInformation($"A user failed the bot test ip:{ip.GetIpAddress(Request)}");
                 return View(cvm);
             }
 #endif
@@ -100,7 +101,6 @@ namespace Portfolio.Controllers
 
             //code to get real ip address
             //string? realip;
-            bool found = false;
             Microsoft.Extensions.Primitives.StringValues realip= ip.GetIpAddress(Request);
 
             ///end code to get ip 

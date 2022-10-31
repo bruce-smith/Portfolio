@@ -1,0 +1,25 @@
+10:44pm
+    Added instance [i-0a6af695b651df01e] to your environment.
+10:44pm
+    Create environment operation is complete, but with errors. For more information, see troubleshooting documentation.
+10:43pm
+    Command execution completed on all instances. Summary: [Successful: 0, Failed: 1].
+10:43pm
+    [Instance: i-0a6af695b651df01e] Command failed on instance. Return code: 1 Output: Engine execution has encountered an error..
+10:43pm
+    Instance deployment: Your source bundle has a single .NET Core application. You must include a file with a '.runtimeconfig.json' suffix. The deployment failed.
+10:43pm
+    Instance deployment found a runtime-dependent .NET Core application in your source bundle.
+10:43pm
+    Instance deployment failed. For details, see 'eb-engine.log'.
+_________________________________________________________________________
+
+Portfolio1: deploying...
+[0%] start: Publishing 1f8de6f481a3f170f3e18f5f4b4c2094150892e3a7d9f14f2cb2dc542aa5970c:763219032307-us-east-2
+[50%] fail: No bucket named 'cdk-hnb659fds-assets-763219032307-us-east-2'. Is account 763219032307 bootstrapped?
+[50%] start: Publishing 1f2e97164edac44bf73d15209591ceb4e002894535374146773414702340459e:763219032307-us-east-2
+[100%] fail: No bucket named 'cdk-hnb659fds-assets-763219032307-us-east-2'. Is account 763219032307 bootstrapped?
+
+
+
+https://ketuma.com/blog/cdk-bootstrap-error-and-how-to-fix-it/

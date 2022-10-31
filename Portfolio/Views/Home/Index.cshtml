@@ -1,6 +1,12 @@
-﻿@{
+﻿@model Portfolio.Models.ContactViewModel
+@{
     ViewBag.Title = "Home Page";
 }
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script> @*need for captcha*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 @section Modal {
     <!-- Portfolio Modals -->
     @for (int i = 0; i < ViewBag.gridItems.Length; i++)
@@ -154,13 +160,67 @@
             <div class="divider-custom-line"></div>
         </div>
         <!--contact forum-->
-        <iframe id="contactBox" src="@Url.ActionLink("Contact")" width="100%"></iframe>
-        <style>
-            #contactBox {
-                height: 37em;
-                border-style: none;
-            }
-        </style>
+        <div id="ContactForum">
+            @using (Html.BeginForm())
+            {
 
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" ,@id="nameBox"} })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <div id="nameError" class="text-danger">* Name is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" ,@id="emailBox"} })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            <div id="emailError" class="text-danger">* Email is required</div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" ,@id="subjectBox"} })
+                            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" ,@id="messageBox"} })
+                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                            <div id ="messageError" class="text-danger">* Message is required</div>
+                        </div>
+                    </div>
+                    @*start captcha code*@
+                    <div id="" class="g-recaptcha" data-sitekey="@ViewBag.captchaSiteKey"></div>
+                    @Html.Raw(ViewBag.test)
+                    @*end captcha code*@
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="ContactSubmitButton" type="submit" value="Send" class="btn btn-primary btn-xl" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div id="output" class="px-4 py-5 my-5 text-center"></div>
+        <div id="LoadingPlaceHolder" style="visibility: hidden;">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 </section>
+<script src="/Content/js/Script.js"></script>

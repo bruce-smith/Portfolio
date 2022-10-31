@@ -33,4 +33,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+
+//log4net.LogManager.GetCurrentLoggers()[0].Info("Start up hello");
+
 app.Run();
+
