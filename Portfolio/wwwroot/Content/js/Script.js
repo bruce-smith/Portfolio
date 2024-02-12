@@ -17,6 +17,11 @@ function ValidateEmail(mail) {
 function messageBack(response) {
     alert(response.text());
 }
+function dontgo(e)
+{
+    e.preventDefault();
+    e.returnValue = 'Your Message has not yet been sent, if you go now it will be lost.';
+}
 
 async function myFunction() {
     hideError()
@@ -56,7 +61,9 @@ async function myFunction() {
         let url = window.location.protocol + "//" + window.location.host+"/api/email/?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&subject=" + encodeURIComponent(subject) + "&messageBody=" + encodeURIComponent(message) + "&code=" + encodeURIComponent(code);
 
         theForum.style.visibility = "hidden";
-        LoadingPlaceHolder.style.visibility = "visible";
+        //LoadingPlaceHolder.style.visibility = "visible";
+        $("#output")[0].innerHTML = "<h4>Sending Message</h4></br><h4>Please wait, Do not close or refresh the page. </h4>";
+        let notready=window.addEventListener('beforeunload', dontgo);
 
         response = await fetch(url);
         if (response.ok) {
@@ -67,7 +74,8 @@ async function myFunction() {
         else {
             $("#output")[0].innerHTML = "<h4>There was an error.</h4></br><h4>Please reload the page and try again.</h4>";
         }
-
+        
+       documentremoveEventListener('beforeunload', notready);
 
 
     }
