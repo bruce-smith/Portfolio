@@ -86,9 +86,10 @@ namespace Portfolio.Controllers
 
             //SmtpClient setup
             SmtpClient client = new SmtpClient(_config["Email:Url"]);
+            client.Port = 587;
             //client credentials
-
             client.Credentials = new NetworkCredential(_config["Email:UserName"], _config["Email:Password"]);
+            client.EnableSsl = true;
 
             //we need to handel the case were the mail server is not working
             try
@@ -100,7 +101,8 @@ namespace Portfolio.Controllers
             {
                 _logger.LogError($"Email failed to send. sender ip:{ip.GetIpAddress(Request)} name: {name} subject: {subject} message: {message}");
                 _logger.LogError(ex.Message);
-                _logger.LogTrace(ex.StackTrace);
+                _logger.LogError(ex.StackTrace);
+                Response.StatusCode = 500;
                 return "failed";
 
             }
