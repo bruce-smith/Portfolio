@@ -29,7 +29,29 @@
         gtag('config', 'G-YHH452D3HR');
     </script>
     <!--end google tracking code-->
-
+    <!--AWS RUM code-->
+    <script>
+        (function (n, i, v, r, s, c, x, z) { x = window.AwsRumClient = { q: [], n: n, i: i, v: v, r: r, c: c }; window[n] = function (c, p) { x.q.push({ c: c, p: p }); }; z = document.createElement('script'); z.async = true; z.src = s; document.head.insertBefore(z, document.head.getElementsByTagName('script')[0]); })(
+            'cwr',
+            'd94ee519-a683-4c58-9d97-c1f76b995563',
+            '1.0.0',
+            'us-east-2',
+            'https://client.rum.us-east-1.amazonaws.com/1.16.1/cwr.js',
+            {
+                pagesToExclude: [
+                    /https:\/\/brucebsmith\.net\/Error\/e404/
+                ],
+                sessionSampleRate: 1,
+                guestRoleArn: "arn:aws:iam::763219032307:role/RUM-Monitor-us-east-2-763219032307-7355226677071-Unauth",
+                identityPoolId: "us-east-2:037efbab-c195-4a45-bc73-1a23046525ae",
+                endpoint: "https://dataplane.rum.us-east-2.amazonaws.com",
+                telemetries: ["performance", "errors", "http"],
+                allowCookies: true,
+                enableXRay: true
+            }
+        );
+    </script>
+    <!--end AWS RUM code-->
 </head>
 
 <body id="page-top">
